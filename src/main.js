@@ -67,8 +67,16 @@ canvas{
 			(function(){
 				document.body.appendChild(video);
 				navigator.mediaDevices.getUserMedia({
-				
-				})
+					audio:true,
+					video:true
+				}).then(function(stream){
+					video.srcObject = stream;
+					video.onloadedmetadata = function(e){
+						video.play();
+					};
+				}).catch(function(e){
+					console.log(e.name +": "+e.message);
+				});
 			})();
 		})();
 	})();
